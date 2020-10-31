@@ -14,9 +14,45 @@ class LandingPageScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                SizedBox(
-                  height: 2900,
-                ),
+                Container(
+                  margin: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.35,
+                    right: MediaQuery.of(context).size.width * 0.35,
+                    top: 25,
+                    bottom: 20,
+                  ),
+                  height: MediaQuery.of(context).size.height * 0.9 - 70,
+                  width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.center,
+                  child: Card(
+                    elevation: 10,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            color: Colors.blue,
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            color: Colors.blue,
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            color: Colors.blue,
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
           ),

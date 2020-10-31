@@ -33,7 +33,10 @@ class MyApp extends StatelessWidget {
           accentColor: Color(0xFF4DD0E1),
           fontFamily: 'OpenSans',
         ),
-        home: LandingPageScreen(),
+        initialRoute: '/home',
+        routes: {
+          '/home': (ctx) => LandingPageScreen(),
+        },
       ),
     );
   }

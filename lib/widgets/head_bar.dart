@@ -14,69 +14,136 @@ class HeadBar extends StatelessWidget {
       delegate: _SliverDelegate(
         child: Container(
           color: Theme.of(context).primaryColor,
+          width: MediaQuery.of(context).size.width,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
                 flex: 2,
-                child: Container(),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 9,
+                    ),
+                    CircleAvatar(
+                      // backgroundImage: AssetImage(
+                      //   'assets/images/rail_icon.png',
+                      // ),
+                      backgroundColor: Colors.transparent,
+                      child: Image.asset(
+                        'assets/images/train.png',
+                        fit: BoxFit.contain,
+                      ),
+                      maxRadius: 23,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Railway Reservation System',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Expanded(
                 flex: 2,
-                child: Container(
+                child: FittedBox(
                   alignment: Alignment.center,
-                  child: Text(
-                    'Railway Reservation System',
-                    style: TextStyle(
-                      fontSize: 27,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
+                  fit: BoxFit.contain,
+                  child: InkWell(
+                    hoverColor: Colors.grey[400],
+                    onTap: () {},
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 60,
+                      child: Text(
+                        'Edit Profile',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
               Expanded(
                 flex: 2,
-                child: RaisedButton(
-                  onPressed: () async {
-                    !Provider.of<Auth>(context, listen: false).isAuth
-                        ? Provider.of<Auth>(context, listen: false).authenticate()
-                        : Provider.of<Auth>(context, listen: false).signOut().then((_) {
-                            html.window.location.reload();
-                          });
-                  },
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(6),
-                        width: 35,
-                        height: 35,
-                        child: Image.asset(
-                          'assets/images/google.png',
-                        ),
+                child: FittedBox(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    width: 280,
+                    margin: EdgeInsets.only(
+                      right: 17,
+                      bottom: 17,
+                      top: 17,
+                    ),
+                    child: RaisedButton(
+                      onPressed: () async {
+                        !Provider.of<Auth>(context, listen: false).isAuth
+                            ? Provider.of<Auth>(context, listen: false)
+                                .authenticate()
+                                .then((_) => html.window.location.reload())
+                            : Provider.of<Auth>(context, listen: false).signOut().then((_) {
+                                html.window.location.reload();
+                              });
+                      },
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      Provider.of<Auth>(context).isAuth
-                          ? Text(
-                              ' SIGN OUT  ',
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.black,
-                              ),
-                            )
-                          : Text(
-                              ' SIGN IN WITH GOOGLE  ',
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.black,
-                              ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(6),
+                            width: 35,
+                            height: 35,
+                            child: Image.asset(
+                              'assets/images/google.png',
                             ),
-                    ],
+                          ),
+                          FittedBox(
+                            child: FutureBuilder(
+                              future: Provider.of<Auth>(context, listen: false).autoLogin(),
+                              builder: (ctx, snapshot) {
+                                print(snapshot.connectionState);
+                                if (snapshot.connectionState != ConnectionState.waiting) {
+                                  if (snapshot.data)
+                                    return Text(
+                                      ' SIGN OUT  ',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.black,
+                                      ),
+                                    );
+                                  else
+                                    return Text(
+                                      ' SIGN IN WITH GOOGLE  ',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.black,
+                                      ),
+                                    );
+                                } else
+                                  return Text(' ');
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -121,10 +188,8 @@ class _SliverDelegate implements SliverPersistentHeaderDelegate {
   OverScrollHeaderStretchConfiguration get stretchConfiguration => null;
 
   @override
-  // TODO: implement showOnScreenConfiguration
   PersistentHeaderShowOnScreenConfiguration get showOnScreenConfiguration => null;
 
   @override
-  // TODO: implement vsync
   TickerProvider get vsync => null;
 }

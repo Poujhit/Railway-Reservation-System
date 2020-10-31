@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -23,8 +24,9 @@ class Auth with ChangeNotifier {
   Future<bool> autoLogin() async {
     SharedPreferences s = await SharedPreferences.getInstance();
     if (!s.containsKey('user') && !s.containsKey('pu')) {
-      var p = s.getString('user');
+      var p = s.containsKey('user');
       print('1:$p');
+      notifyListeners();
       return false;
     }
     userId = s.getString('user');
@@ -60,7 +62,17 @@ class Auth with ChangeNotifier {
       pref.setString('name', user.displayName);
       userName = pref.getString('name');
       token = user.uid;
-
+      var docsSnapshot = await FirebaseFirestore.instance.collection('users').doc(user.uid.toString()).get();
+      print(docsSnapshot.exists);
+      if (!docsSnapshot.exists)
+        await FirebaseFirestore.instance.collection('users').doc(user.uid.toString()).set(
+          {
+            'email': user.email,
+            'user_id': user.uid.toString(),
+            'profile_url': user.photoURL.toString(),
+            'name': user.displayName,
+          },
+        );
       print(user);
       notifyListeners();
     } else
