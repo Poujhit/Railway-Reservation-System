@@ -39,16 +39,22 @@ class HeadBar extends StatelessWidget {
                     SizedBox(
                       width: 10,
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        'Railway Reservation System',
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
+                    InkWell(
+                      onTap: () {
+                        html.window.location.reload();
+                        Navigator.of(context).pushReplacementNamed('/home');
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Railway Reservation System',
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
                       ),
                     ),
                   ],
