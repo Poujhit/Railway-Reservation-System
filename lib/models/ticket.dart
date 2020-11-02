@@ -1,13 +1,15 @@
 class Ticket {
-  List<dynamic> passengers;
+  List passengers;
   String ticId;
-  String ticketStatus;
-  String totalPrice;
+  int ticketStatus;
+  int totalPrice;
+  int sno;
 
   Ticket({
     this.passengers,
     this.ticId,
     this.ticketStatus,
     this.totalPrice,
+    this.sno,
   });
 }

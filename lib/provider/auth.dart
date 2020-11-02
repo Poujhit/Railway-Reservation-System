@@ -38,6 +38,12 @@ class Auth with ChangeNotifier {
     return true;
   }
 
+  Future<String> getUserId() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey('user')) return pref.getString('user');
+    return '';
+  }
+
   Future<void> authenticate() async {
     GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
 

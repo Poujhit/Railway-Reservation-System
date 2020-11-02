@@ -5,6 +5,8 @@ import 'package:firebase_core/firebase_core.dart';
 
 import './web_screens/landing_screen.dart';
 import './provider/auth.dart';
+import './web_screens/booking_screen.dart';
+import './web_screens/profile_edit_screen.dart';
 
 FirebaseAnalytics firebaseAnalytics;
 
@@ -50,6 +52,8 @@ class MyApp extends StatelessWidget {
         initialRoute: '/home',
         routes: {
           '/home': (ctx) => LandingPageScreen(),
+          BookingScreenPage.route: (ctx) => BookingScreenPage(),
+          ProfileEditPageScreen.route: (ctx) => ProfileEditPageScreen(),
         },
       ),
     );

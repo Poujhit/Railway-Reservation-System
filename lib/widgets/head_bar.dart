@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:railway_reservation_website/web_screens/profile_edit_screen.dart';
 import 'package:universal_html/html.dart' as html;
 
 import '../provider/auth.dart';
@@ -26,9 +27,6 @@ class HeadBar extends StatelessWidget {
                       width: 9,
                     ),
                     CircleAvatar(
-                      // backgroundImage: AssetImage(
-                      //   'assets/images/rail_icon.png',
-                      // ),
                       backgroundColor: Colors.transparent,
                       child: Image.asset(
                         'assets/images/train.png',
@@ -41,8 +39,13 @@ class HeadBar extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        html.window.location.reload();
-                        Navigator.of(context).pushReplacementNamed('/home');
+                        if (ModalRoute.of(context).settings.name.contains(ProfileEditPageScreen.route))
+                          Navigator.of(context).pop();
+                        else if (ModalRoute.of(context).settings.name == '/home')
+                          return;
+                        else {
+                          Navigator.of(context).pushReplacementNamed('/home');
+                        }
                       },
                       child: Container(
                         alignment: Alignment.center,
@@ -67,7 +70,10 @@ class HeadBar extends StatelessWidget {
                   fit: BoxFit.contain,
                   child: InkWell(
                     hoverColor: Colors.grey[400],
-                    onTap: () {},
+                    onTap: () {
+                      if (ModalRoute.of(context).settings.name.contains(ProfileEditPageScreen.route)) return;
+                      Navigator.of(context).pushNamed(ProfileEditPageScreen.route);
+                    },
                     child: Container(
                       alignment: Alignment.center,
                       height: 60,
