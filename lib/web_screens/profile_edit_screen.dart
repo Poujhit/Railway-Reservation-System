@@ -108,7 +108,7 @@ class _ProfileEditPageScreenState extends State<ProfileEditPageScreen> {
                   future: Provider.of<Auth>(context, listen: false).getUserId(),
                   builder: (ctx, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Text('');
+                      return Center(child: CircularProgressIndicator());
                     } else {
                       if (snapshot.data == '')
                         return Container(
@@ -345,7 +345,7 @@ class _ProfileEditPageScreenState extends State<ProfileEditPageScreen> {
                                     ],
                                   );
                                 else
-                                  return Text('');
+                                  return Center(child: CircularProgressIndicator());
                               },
                             ),
 
@@ -532,7 +532,7 @@ class _ProfileEditPageScreenState extends State<ProfileEditPageScreen> {
                                     }).toList());
                                   }
                                 } else
-                                  return Text('');
+                                  return Center(child: CircularProgressIndicator());
                               },
                             ),
                           ],
