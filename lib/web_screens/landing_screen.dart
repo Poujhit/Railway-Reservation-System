@@ -1,6 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:railway_reservation_website/provider/auth.dart';
+import 'package:railway_reservation_website/provider/train_provider.dart';
+import 'package:railway_reservation_website/web_screens/booking_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../widgets/head_bar.dart';
 
@@ -46,7 +52,6 @@ class _LandingPageScreenState extends State<LandingPageScreen> {
               'Delhi',
               'Mumbai',
               'Kolkata',
-              'Kanyakumari',
             ].map<DropdownMenuItem<String>>((value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -97,7 +102,6 @@ class _LandingPageScreenState extends State<LandingPageScreen> {
               'Kolkata',
               'Mumbai',
               'Chennai',
-              'Kanyakumari',
             ].map<DropdownMenuItem<String>>((value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -121,6 +125,28 @@ class _LandingPageScreenState extends State<LandingPageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     // for (int i = 3; i <= 9; i++) {
+      //     //   var p = DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: i)));
+      //     //   await FirebaseFirestore.instance
+      //     //       .collection('train')
+      //     //       .doc('v5d0wTmM6dBlfricsrjQ')
+      //     //       .collection('trainStatus')
+      //     //       .doc(p)
+      //     //       .set({
+      //     //     'available_ac_seats': 10,
+      //     //     'available_nor_seats': 15,
+      //     //     'available_sleeper_seats': 10,
+      //     //     'booked_ac_seats': 0,
+      //     //     'booked_nor_seats': 0,
+      //     //     'booked_sleeper_seats': 0,
+      //     //     'date': p,
+      //     //   });
+      //     // }
+      //     // await TrainProvider.getTrainStatus('06-11-2020', '09577');
+      //   },
+      // ),
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
@@ -251,10 +277,11 @@ class _LandingPageScreenState extends State<LandingPageScreen> {
                                 Expanded(
                                   flex: 2,
                                   child: Text(
-                                    date == '' ? ' Date not taken yet' : '   $date',
+                                    date == '' ? ' Date not taken yet' : '$date',
                                     style: TextStyle(
                                       fontSize: 20,
                                     ),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                                 Expanded(
@@ -269,19 +296,24 @@ class _LandingPageScreenState extends State<LandingPageScreen> {
                                       icon: Icon(
                                         Icons.calendar_today,
                                       ),
-                                      onPressed: () {
-                                        showDatePicker(
+                                      onPressed: () async {
+                                        SharedPreferences pref = await SharedPreferences.getInstance();
+                                        var pickedDate = await showDatePicker(
                                           context: context,
-                                          firstDate: DateTime.now(),
-                                          lastDate: DateTime.now().add(
-                                            Duration(days: 7),
+                                          firstDate: DateTime(2020, 11, 6),
+                                          lastDate: DateTime(2020, 11, 6).add(
+                                            Duration(days: 6),
                                           ),
-                                          initialDate: DateTime.now(),
-                                        ).then((pickedDate) {
+                                          initialDate: DateTime(2020, 11, 6),
+                                        );
+                                        if (pickedDate == null)
+                                          date = '';
+                                        else {
                                           setState(() {
                                             date = DateFormat('dd-MM-yyyy').format(pickedDate);
                                           });
-                                        });
+                                          pref.setString('pickedDate', date);
+                                        }
                                       },
                                     ),
                                   ),
@@ -305,7 +337,26 @@ class _LandingPageScreenState extends State<LandingPageScreen> {
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                                onPressed: () {},
+                                onPressed: () async {
+                                  bool checkLogin = await Provider.of<Auth>(context, listen: false).autoLogin();
+                                  if (todropdownValue == fromdropdownValue && date != '')
+                                    Fluttertoast.showToast(msg: 'Both To and From destinations should not be same');
+                                  else if (date == '' && todropdownValue != fromdropdownValue) {
+                                    Fluttertoast.showToast(msg: 'Choose Date.');
+                                  } else if (date == '' && todropdownValue == fromdropdownValue) {
+                                    Fluttertoast.showToast(
+                                        msg: 'Both To and From destinations should not be same and Choose the Date.');
+                                  } else if (checkLogin == false) {
+                                    Fluttertoast.showToast(msg: 'Login/SignIn via Google to Continue.');
+                                  } else {
+                                    var p = await SharedPreferences.getInstance();
+                                    p.setString('from', fromdropdownValue);
+                                    p.setString('to', todropdownValue);
+                                    Navigator.of(context).pushNamed(
+                                      BookingScreenPage.route,
+                                    );
+                                  }
+                                },
                               ),
                             ),
                           ),

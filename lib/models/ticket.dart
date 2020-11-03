@@ -1,8 +1,9 @@
 class Ticket {
-  List passengers;
-  String ticId;
-  int ticketStatus;
-  int totalPrice;
+  final List passengers;
+  final String ticId;
+  final int ticketStatus;
+  final int totalPrice;
+  final String trainno;
   int sno;
 
   Ticket({
@@ -10,6 +11,7 @@ class Ticket {
     this.ticId,
     this.ticketStatus,
     this.totalPrice,
+    this.trainno,
     this.sno,
   });
 }

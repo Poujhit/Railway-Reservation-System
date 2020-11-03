@@ -388,6 +388,11 @@ class _ProfileEditPageScreenState extends State<ProfileEditPageScreen> {
                                               height: 10,
                                             ),
                                             divider(),
+                                            ticketTile('Train Number:', eachTicket.trainno),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            divider(),
                                             ticketTile(
                                                 'Ticket Status:',
                                                 eachTicket.ticketStatus == 0
