@@ -123,6 +123,8 @@ class _LandingPageScreenState extends State<LandingPageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var p = DateFormat('dd-MM-yyyy').format(DateTime(2020, 11, 13).subtract(Duration(days: 1)));
+    print(p);
     return Scaffold(
       backgroundColor: Colors.white,
       // floatingActionButton: FloatingActionButton(
@@ -145,6 +147,7 @@ class _LandingPageScreenState extends State<LandingPageScreen> {
       //     //   });
       //     // }
       //     // await TrainProvider.getTrainStatus('06-11-2020', '09577');
+
       //   },
       // ),
       body: CustomScrollView(
@@ -349,6 +352,49 @@ class _LandingPageScreenState extends State<LandingPageScreen> {
                                   } else if (checkLogin == false) {
                                     Fluttertoast.showToast(msg: 'Login/SignIn via Google to Continue.');
                                   } else {
+                                    // This below function down there is run to update the trainStatus for each day.
+                                    // Each train has status for seven days. After a day in tht seven days is over,
+                                    //this function below updates the day and seats are refreshed.
+                                    var s = await FirebaseFirestore.instance.collection('train').get();
+
+                                    s.docs.forEach((eachTrain) async {
+                                      if (DateFormat('dd-MM-yyyy').format(DateTime.now()) ==
+                                          DateFormat('dd-MM-yyyy').format(DateTime(
+                                              2020, 11, 6))) //this check is made as the app goes production from nov 6
+
+                                      {
+                                        var eachTrainStatus = await eachTrain.reference
+                                            .collection('trainStatus')
+                                            .doc(DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 6))))
+                                            .get();
+                                        print(eachTrainStatus.exists);
+                                        print(eachTrainStatus.reference);
+                                        if (!eachTrainStatus.exists) {
+                                          await eachTrain.reference
+                                              .collection('trainStatus')
+                                              .doc(DateFormat('dd-MM-yyyy')
+                                                  .format(DateTime.now().subtract(Duration(days: 1))))
+                                              .delete();
+                                          await eachTrain.reference
+                                              .collection('trainStatus')
+                                              .doc(DateFormat('dd-MM-yyyy')
+                                                  .format(DateTime.now().add(Duration(days: 6))))
+                                              .set({
+                                            'available_ac_seats': 10,
+                                            'available_nor_seats': 15,
+                                            'available_sleeper_seats': 10,
+                                            'date':
+                                                DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 6))),
+                                            'booked_ac_seats': 0,
+                                            'booked_nor_seats': 0,
+                                            'booked_sleeper_seats': 0,
+                                          });
+                                        } //this is the logic for refreshing train status.
+                                      } else {
+                                        print('not 6/11/2020');
+                                      }
+                                    });
+
                                     var p = await SharedPreferences.getInstance();
                                     p.setString('from', fromdropdownValue);
                                     p.setString('to', todropdownValue);
