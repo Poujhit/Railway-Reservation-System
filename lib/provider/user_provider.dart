@@ -35,6 +35,7 @@ class UserProvider {
                 ticketStatus: e.get('ticket_status') ?? 0,
                 totalPrice: e.get('total_price') ?? 0,
                 sno: e.get('sno') ?? 0,
+                date: e.get('date'),
                 trainno: e.get('train_no') ?? '',
               ),
             )

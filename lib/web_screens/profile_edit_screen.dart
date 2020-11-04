@@ -523,6 +523,11 @@ class _ProfileEditPageScreenState extends State<ProfileEditPageScreen> {
                                               height: 10,
                                             ),
                                             divider(),
+                                            ticketTile('Date:', '${eachTicket.date}'),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            divider(),
                                             ticketTile('Total Price:', '${eachTicket.totalPrice}'),
                                             SizedBox(
                                               height: 10,
