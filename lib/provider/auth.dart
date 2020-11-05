@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
@@ -86,12 +87,12 @@ class Auth with ChangeNotifier {
       Fluttertoast.showToast(msg: 'Login to use!', toastLength: Toast.LENGTH_SHORT);
   }
 
-  Future<void> signOut() async {
+  Future<void> signOut(BuildContext context) async {
     //await googleSignIn.signOut();
     SharedPreferences pref = await SharedPreferences.getInstance();
     var checklogout = await pref.clear();
     checklogout ? Fluttertoast.showToast(msg: 'User Credentials cleared') : Fluttertoast.showToast(msg: 'error');
-
+    Navigator.of(context).pushReplacementNamed('/home');
     await googleSignIn.disconnect();
   }
 }
