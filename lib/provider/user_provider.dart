@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:railway_reservation_website/provider/auth.dart';
 import '../models/user.dart';
 import '../models/ticket.dart';
 
@@ -26,6 +27,7 @@ class UserProvider {
         .collection('users')
         .doc(userId)
         .collection('tickets')
+        .orderBy('sno', descending: true)
         .snapshots()
         .map((event) => event.docs
             .map(
@@ -57,6 +59,30 @@ class UserProvider {
   static Future<void> editProfilePhoto(String newurl, dynamic userId) async {
     await FirebaseFirestore.instance.collection('users').doc(userId).update({
       'profile_url': newurl,
+    });
+  }
+
+  static Future<void> addNewTicketToTheUser({
+    String date,
+    List<dynamic> passengers,
+    int totalPrice,
+    String trainno,
+  }) async {
+    var auth = Auth();
+    var userid = await auth.getUserId();
+    var userDetails = await FirebaseFirestore.instance.collection('users').where('user_id', isEqualTo: userid).get();
+    String randomId = userDetails.docs.first.reference.collection('tickets').doc().id;
+    var allTickets = await userDetails.docs.first.reference.collection('tickets').get();
+    var currSno = allTickets.docs.length;
+
+    userDetails.docs.first.reference.collection('tickets').doc(randomId).set({
+      'date': date,
+      'passengers': passengers,
+      'sno': currSno + 1,
+      'tic_id': randomId,
+      'ticket_status': 1,
+      'total_price': totalPrice,
+      'train_no': trainno,
     });
   }
 }

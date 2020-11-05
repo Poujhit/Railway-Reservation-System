@@ -94,8 +94,6 @@ class _ProfileEditPageScreenState extends State<ProfileEditPageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(Provider.of<Auth>(context, listen: false).userId);
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
