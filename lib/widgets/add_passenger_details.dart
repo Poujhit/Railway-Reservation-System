@@ -109,47 +109,12 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
           height: 30,
         ),
         ...passengerWidget,
-        SizedBox(
-          height: 30,
-        ),
         Container(
           margin: EdgeInsets.only(
             left: MediaQuery.of(context).size.width * 0.46,
             right: MediaQuery.of(context).size.width * 0.46,
           ),
           height: 30,
-          child: RaisedButton(
-            child: Text('Add One More'),
-            onPressed: () {
-              passengerWidget.add(DynamicAddPassengerWidget());
-              setState(() {});
-            },
-          ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          margin: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.46,
-            right: MediaQuery.of(context).size.width * 0.46,
-          ),
-          height: 30,
-          child: RaisedButton(
-            child: Text(
-              'Delete the Last',
-              textAlign: TextAlign.center,
-            ),
-            hoverColor: passengerWidget.length == 1 ? Colors.grey : Colors.red,
-            onPressed: () {
-              if (passengerWidget.length == 1)
-                return;
-              else {
-                passengerWidget.removeLast();
-                setState(() {});
-              }
-            },
-          ),
         ),
         SizedBox(
           height: 30,
@@ -229,6 +194,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                           widget.trainno,
                           eachWidget.seattypeController.text.toLowerCase(),
                         );
+                        print('booked seats : $bookedAcSeats');
                         print('fetchbooked done');
                         int ticketno = (traindetails.availableAcSeats - bookedAcSeats).abs();
                         print('ticket no done');
@@ -314,17 +280,24 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                       }
                     }
                   }
+                  print('list $passengerDetails');
+                  print('total cost $totalcost');
+                  if (passengerDetails.isNotEmpty && totalcost != 0 && passengerWidget.length == 1) {
+                    await UserProvider.addNewTicketToTheUser(
+                      date: widget.bookingdetails['date'],
+                      passengers: passengerDetails,
+                      totalPrice: totalcost,
+                      trainno: widget.trainno,
+                    );
+                    var p = Auth();
+                    var userId = await p.getUserId();
+                    await FirebaseFirestore.instance.collection('bookingReceipts').add({
+                      'amount': totalcost,
+                      'userId': userId,
+                    });
+                    showdialog('Booking done!!! Go to Edit Profile Page to view Your Ticket Details.');
+                  }
                 });
-                print(passengerDetails);
-                print(totalcost);
-                if (passengerDetails.isNotEmpty && totalcost != 0)
-                  await UserProvider.addNewTicketToTheUser(
-                    date: widget.bookingdetails['date'],
-                    passengers: passengerDetails,
-                    totalPrice: totalcost,
-                    trainno: widget.trainno,
-                  );
-                showdialog('Booking done!!! Go to Edit Profile Page to view Your Ticket Details.');
               }
             },
           ),

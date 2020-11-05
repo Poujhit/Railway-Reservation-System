@@ -351,7 +351,7 @@ class BookingScreenPage extends StatelessWidget {
                                                                       Container(
                                                                         margin: EdgeInsets.only(left: 5),
                                                                         child: Text(
-                                                                          'Ac Tickets: ${trainStatusSnapshot.data.availableAcSeats} Nos.',
+                                                                          'Ac Tickets: ${trainStatusSnapshot.data.availableAcSeats - trainStatusSnapshot.data.bookedAcSeats} Nos.',
                                                                           style: TextStyle(
                                                                             fontSize: 16,
                                                                             fontWeight: FontWeight.w500,
@@ -361,7 +361,7 @@ class BookingScreenPage extends StatelessWidget {
                                                                       Container(
                                                                         margin: EdgeInsets.only(left: 5),
                                                                         child: Text(
-                                                                          'Normal Tickets: ${trainStatusSnapshot.data.availableNorSeats} Nos.',
+                                                                          'Normal Tickets: ${trainStatusSnapshot.data.availableNorSeats - trainStatusSnapshot.data.bookedNorSeats} Nos.',
                                                                           style: TextStyle(
                                                                             fontSize: 16,
                                                                             fontWeight: FontWeight.w500,
@@ -371,7 +371,7 @@ class BookingScreenPage extends StatelessWidget {
                                                                       Container(
                                                                         margin: EdgeInsets.only(left: 5),
                                                                         child: Text(
-                                                                          'Sleeper Tickets: ${trainStatusSnapshot.data.availableSleeperSeats} Nos.',
+                                                                          'Sleeper Tickets: ${trainStatusSnapshot.data.availableSleeperSeats - trainStatusSnapshot.data.bookedSleeperSeats} Nos.',
                                                                           style: TextStyle(
                                                                             fontSize: 16,
                                                                             fontWeight: FontWeight.w500,
@@ -443,7 +443,13 @@ class BookingScreenPage extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(height: 30),
-                                  AddPassengerDetails(snapshot.data, streamSnapshot.data.first.trainno),
+                                  AddPassengerDetails(
+                                    snapshot.data,
+                                    streamSnapshot.data.first.trainno,
+                                    streamSnapshot.data.first.seatprice['ac_seatprice'],
+                                    streamSnapshot.data.first.seatprice['nor_seatprice'],
+                                    streamSnapshot.data.first.seatprice['sleeper_seatprice'],
+                                  ),
                                   SizedBox(height: 50),
                                 ],
                               ),
