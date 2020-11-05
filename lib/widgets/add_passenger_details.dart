@@ -2,12 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:universal_html/html.dart' as html;
-import 'package:intl/intl.dart';
-import 'package:railway_reservation_website/models/trains.dart';
+
 import 'package:railway_reservation_website/provider/auth.dart';
 import 'package:railway_reservation_website/provider/train_provider.dart';
 import 'package:railway_reservation_website/provider/user_provider.dart';
-import 'package:railway_reservation_website/web_screens/profile_edit_screen.dart';
 
 class AddPassengerDetails extends StatefulWidget {
   final Map<String, String> bookingdetails;

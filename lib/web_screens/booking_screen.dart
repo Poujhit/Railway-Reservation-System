@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intl/intl.dart';
+
 import 'package:railway_reservation_website/widgets/add_passenger_details.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

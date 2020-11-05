@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:railway_reservation_website/provider/auth.dart';
-import 'package:railway_reservation_website/provider/train_provider.dart';
+
 import 'package:railway_reservation_website/web_screens/booking_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
