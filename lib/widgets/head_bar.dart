@@ -107,7 +107,7 @@ class HeadBar extends StatelessWidget {
                             ? Provider.of<Auth>(context, listen: false)
                                 .authenticate()
                                 .then((_) => html.window.location.reload())
-                            : Provider.of<Auth>(context, listen: false).signOut().then((_) {
+                            : Provider.of<Auth>(context, listen: false).signOut(context).then((_) {
                                 html.window.location.reload();
                               });
                       },
