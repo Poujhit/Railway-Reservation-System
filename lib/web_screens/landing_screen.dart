@@ -220,7 +220,7 @@ class _LandingPageScreenState extends State<LandingPageScreen> {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 2,
+                                  flex: 1,
                                   child: fromdropdown(),
                                 ),
                               ],
@@ -252,7 +252,7 @@ class _LandingPageScreenState extends State<LandingPageScreen> {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 2,
+                                  flex: 1,
                                   child: todropdown(),
                                 ),
                               ],
@@ -303,11 +303,11 @@ class _LandingPageScreenState extends State<LandingPageScreen> {
                                         SharedPreferences pref = await SharedPreferences.getInstance();
                                         var pickedDate = await showDatePicker(
                                           context: context,
-                                          firstDate: DateTime(2020, 11, 6),
-                                          lastDate: DateTime(2020, 11, 6).add(
+                                          firstDate: DateTime.now(),
+                                          lastDate: DateTime.now().add(
                                             Duration(days: 6),
                                           ),
-                                          initialDate: DateTime(2020, 11, 6),
+                                          initialDate: DateTime.now(),
                                         );
                                         if (pickedDate == null)
                                           date = '';
@@ -358,41 +358,32 @@ class _LandingPageScreenState extends State<LandingPageScreen> {
                                     var s = await FirebaseFirestore.instance.collection('train').get();
 
                                     s.docs.forEach((eachTrain) async {
-                                      if (DateFormat('dd-MM-yyyy').format(DateTime.now()) ==
-                                          DateFormat('dd-MM-yyyy').format(DateTime(
-                                              2020, 11, 6))) //this check is made as the app goes production from nov 6
-
-                                      {
-                                        var eachTrainStatus = await eachTrain.reference
+                                      var eachTrainStatus = await eachTrain.reference
+                                          .collection('trainStatus')
+                                          .doc(DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 6))))
+                                          .get();
+                                      print(eachTrainStatus.exists);
+                                      print(eachTrainStatus.reference);
+                                      if (!eachTrainStatus.exists) {
+                                        await eachTrain.reference
+                                            .collection('trainStatus')
+                                            .doc(DateFormat('dd-MM-yyyy')
+                                                .format(DateTime.now().subtract(Duration(days: 1))))
+                                            .delete();
+                                        await eachTrain.reference
                                             .collection('trainStatus')
                                             .doc(DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 6))))
-                                            .get();
-                                        print(eachTrainStatus.exists);
-                                        print(eachTrainStatus.reference);
-                                        if (!eachTrainStatus.exists) {
-                                          await eachTrain.reference
-                                              .collection('trainStatus')
-                                              .doc(DateFormat('dd-MM-yyyy')
-                                                  .format(DateTime.now().subtract(Duration(days: 1))))
-                                              .delete();
-                                          await eachTrain.reference
-                                              .collection('trainStatus')
-                                              .doc(DateFormat('dd-MM-yyyy')
-                                                  .format(DateTime.now().add(Duration(days: 6))))
-                                              .set({
-                                            'available_ac_seats': 10,
-                                            'available_nor_seats': 15,
-                                            'available_sleeper_seats': 10,
-                                            'date':
-                                                DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 6))),
-                                            'booked_ac_seats': 0,
-                                            'booked_nor_seats': 0,
-                                            'booked_sleeper_seats': 0,
-                                          });
-                                        } //this is the logic for refreshing train status.
-                                      } else {
-                                        print('not 6/11/2020');
-                                      }
+                                            .set({
+                                          'available_ac_seats': 10,
+                                          'available_nor_seats': 15,
+                                          'available_sleeper_seats': 10,
+                                          'date':
+                                              DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 6))),
+                                          'booked_ac_seats': 0,
+                                          'booked_nor_seats': 0,
+                                          'booked_sleeper_seats': 0,
+                                        });
+                                      } //this is the logic for refreshing train status.
                                     });
 
                                     var p = await SharedPreferences.getInstance();

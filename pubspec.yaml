@@ -1,5 +1,5 @@
 name: railway_reservation_website
-description: A new Flutter project.
+description: A Railway reservation system created using flutter for Front End and Firebase as a Backend Service.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
