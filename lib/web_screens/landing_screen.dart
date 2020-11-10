@@ -129,7 +129,7 @@ class _LandingPageScreenState extends State<LandingPageScreen> {
       backgroundColor: Colors.white,
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () async {
-      //     // for (int i = 3; i <= 9; i++) {
+      //     // for (int i = 0; i <= 6; i++) {
       //     //   var p = DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: i)));
       //     //   await FirebaseFirestore.instance
       //     //       .collection('train')
@@ -146,8 +146,6 @@ class _LandingPageScreenState extends State<LandingPageScreen> {
       //     //     'date': p,
       //     //   });
       //     // }
-      //     // await TrainProvider.getTrainStatus('06-11-2020', '09577');
-
       //   },
       // ),
       body: CustomScrollView(
