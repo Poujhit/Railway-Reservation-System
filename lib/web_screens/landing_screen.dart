@@ -353,36 +353,37 @@ class _LandingPageScreenState extends State<LandingPageScreen> {
                                     // This below function down there is run to update the trainStatus for each day.
                                     // Each train has status for seven days. After a day in tht seven days is over,
                                     //this function below updates the day and seats are refreshed.
-                                    var s = await FirebaseFirestore.instance.collection('train').get();
+                                    //this below function has made into a python script.
+                                    // var s = await FirebaseFirestore.instance.collection('train').get();
 
-                                    s.docs.forEach((eachTrain) async {
-                                      var eachTrainStatus = await eachTrain.reference
-                                          .collection('trainStatus')
-                                          .doc(DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 6))))
-                                          .get();
-                                      print(eachTrainStatus.exists);
-                                      print(eachTrainStatus.reference);
-                                      if (!eachTrainStatus.exists) {
-                                        await eachTrain.reference
-                                            .collection('trainStatus')
-                                            .doc(DateFormat('dd-MM-yyyy')
-                                                .format(DateTime.now().subtract(Duration(days: 1))))
-                                            .delete();
-                                        await eachTrain.reference
-                                            .collection('trainStatus')
-                                            .doc(DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 6))))
-                                            .set({
-                                          'available_ac_seats': 10,
-                                          'available_nor_seats': 15,
-                                          'available_sleeper_seats': 10,
-                                          'date':
-                                              DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 6))),
-                                          'booked_ac_seats': 0,
-                                          'booked_nor_seats': 0,
-                                          'booked_sleeper_seats': 0,
-                                        });
-                                      } //this is the logic for refreshing train status.
-                                    });
+                                    // s.docs.forEach((eachTrain) async {
+                                    //   var eachTrainStatus = await eachTrain.reference
+                                    //       .collection('trainStatus')
+                                    //       .doc(DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 6))))
+                                    //       .get();
+                                    //   print(eachTrainStatus.exists);
+                                    //   print(eachTrainStatus.reference);
+                                    //   if (!eachTrainStatus.exists) {
+                                    //     await eachTrain.reference
+                                    //         .collection('trainStatus')
+                                    //         .doc(DateFormat('dd-MM-yyyy')
+                                    //             .format(DateTime.now().subtract(Duration(days: 1))))
+                                    //         .delete();
+                                    //     await eachTrain.reference
+                                    //         .collection('trainStatus')
+                                    //         .doc(DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 6))))
+                                    //         .set({
+                                    //       'available_ac_seats': 10,
+                                    //       'available_nor_seats': 15,
+                                    //       'available_sleeper_seats': 10,
+                                    //       'date':
+                                    //           DateFormat('dd-MM-yyyy').format(DateTime.now().add(Duration(days: 6))),
+                                    //       'booked_ac_seats': 0,
+                                    //       'booked_nor_seats': 0,
+                                    //       'booked_sleeper_seats': 0,
+                                    //     });
+                                    //   } //this is the logic for refreshing train status.
+                                    // });
 
                                     var p = await SharedPreferences.getInstance();
                                     p.setString('from', fromdropdownValue);
