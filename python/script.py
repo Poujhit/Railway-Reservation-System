@@ -26,6 +26,7 @@ for eachTrain in allTrain_collection:
             u'booked_nor_seats': 0,
             u'booked_sleeper_seats': 0,
         })
+        print('done!')
     else:
         print('Train Status Up-to-Date')
 
