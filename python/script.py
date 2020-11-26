@@ -2,14 +2,21 @@ import firebase_admin
 import datetime
 from firebase_admin import credentials, firestore
 
+print('Railway Reservation Website Train Status Automation Started.')
+
 cred = credentials.Certificate(
     "./railway-reservation-website-firebase-adminsdk-etsuh-2ceafccb80.json")
 my_app = firebase_admin.initialize_app(cred)
 
+print('Finished Initialisation.')
+
 db = firestore.client()
-### Main Script starts here. ###
 
 allTrain_collection = db.collection('train').get()
+
+print('Got all Train Data')
+
+print('Updating Starts now....')
 
 for eachTrain in allTrain_collection:
     each_day_train_status = eachTrain.reference.collection('trainStatus').document(
