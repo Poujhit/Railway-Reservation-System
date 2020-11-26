@@ -5,7 +5,8 @@ from firebase_admin import credentials, firestore
 print('Railway Reservation Website Train Status Automation Started.')
 
 cred = credentials.Certificate(
-    "./railway-reservation-website-firebase-adminsdk-etsuh-2ceafccb80.json")
+    'D:/flutter_app_folder/railway_reservation_website/python/api_key.json')
+
 my_app = firebase_admin.initialize_app(cred)
 
 print('Finished Initialisation.')

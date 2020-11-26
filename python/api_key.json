@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "railway-reservation-website",
+  "private_key_id": "2ceafccb80c9c11d65ac9ba8432d0bab381ef01b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDSBO3YlQq/duAs\n2Cv4Bkr+t94ERCW7qkAt3CiopiVdkHeqAX6HNbsWEgmCQYZcrwS2HKA866agoRhF\nEKzT11NzKmdBblxxivydxDYKReiC7wCwl4uwto+8w0Mt/mlh9r19TTrwzei6tE+D\nADAQ376wkOAx5UMgJxYOoznCWCiY2qwX3Uv5LLf41nTLkFDC/9dfT8oVbu1Z5V7V\n9NMdyIPRA+iVeHc1cP7u6cTdiseuMOgyhTO+mQYMjUjip94YGHgN6aEiASAzCq4F\nWPhe44s9yZKwgG83sKUYBtuyqZ3BqCLV4lQRwGZt2a0lDkggOsu3DsRuEcQuTn/n\n5BBsDXlTAgMBAAECggEABjZMHLxn2Xr4LYtlXYw+GqOwpvqnDRJ/nHunHjnv4AEe\ncQJjTjeKJaB59IbgpQwuPP7CxJqJzrWFJMHWAtwbJUxrSnWruVYNm9MKcCpaMslE\nAXUyFhOIU+KIsasVTecA+txWcnn8uM0Njwfp5A3iM5HNd9xarHBLiDpOwo9eAAtm\nCaLNEtFYQPAxLlSV22USFzwOLDbBTsiGkAq/PiCxnunN5MlfSfFRfzmeOJU1EJbm\n95pTuToekXNrEXuNK/vnfmNvpE8em3PaZuMBLsHoM1YBnIDQK9m8AsS4mBLO7s+G\nE+g9XkozqyJoLSYJ1+7SgJawRUE0A6HNNdnA8flaBQKBgQD7aVO4qWhXv3bZgfcG\nYS9psgC9p8HZ61mEHLwmHMJND8XFaPZtlMTfTg8+fNQqnV8L8PJccOQWJoVVZKu1\ne+9aAxX8q5f1jB2qmQyT8Hhz1KgD4X3/SDSiETziSYbeyGeDwFFnG+t6Na+WKNNO\ncJHZbGvZMqxcM/GQ+ZSM+wWJjQKBgQDV2jRvPkeijB3j++ltP6+c+wHfB6sofY6l\n4+b1Y9BuqyHm4EYSbyKn+bcjxI+R7vNUkBxnxV/qvSj2vZ9dj82JPLBg0KPQDHxi\neaYeVqKx0uJwkMC2w7f8W2jLrcEWDVTXatXkG7lT18AA/WP7NWpsl3h62w+pxBw+\niyM75oamXwKBgFL0FePAQeVyD00FTPSV7Ib7bLMnPxcgSJEGyi3pH1M9+QuB7o2J\noMvtfaoolfjZpBrUjaNivF9yplves6lWE0un6QFNvP4QFVnM1hGaLqRJboaZSHGK\n6ZLwDR69E/s+NKmMM0/KLpBMVns9TTt8eSM8Wvl3dteVbAdh0loSGWmhAoGAYzya\n0HSKMXfr9vvTWosPJz2jpKeeWW/KXljfuEfVVUW8ubKhUbSY1HIg9kwkg4frCvbE\n97Kzy+5zr+xWo8gzjNfI0WSAX+8rWVcyKynw3awKwEmr5CP2oPiaLMo4q88L69r7\n3pqu6aVYyBzN5Kjo9fNkST6WiiUjJjLS6t0S5ukCgYEA2rt/8qkkWn27V5yoV3Pi\nk41CY47uVrc6Dlk/6L5Xl97QYMyv9CM1SJIT4wz4r51Z+nEmHH5kJaGAMXyWfLqG\n0xIdZD+rOZCPBNT7+xTWJcohcFXTE/W7AQDPrCZ9vF6ndtLoUw7vJzY7G98KU0hB\nkYG1SEhUmZ1qXb/lgpEfAos=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-etsuh@railway-reservation-website.iam.gserviceaccount.com",
+  "client_id": "100406186252425328042",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-etsuh%40railway-reservation-website.iam.gserviceaccount.com"
+}
