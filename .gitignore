@@ -40,7 +40,7 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 index.html
-railway-reservation-website-firebase-adminsdk-etsuh-2ceafccb80.json
+api_key.json
 
 
 # Android Studio will place build artifacts here
