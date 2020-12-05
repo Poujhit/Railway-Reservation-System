@@ -7,7 +7,7 @@ Automation is done using **Python**
 ## Website
   Check out the website [here](https://railway-reservation-website.firebaseapp.com/)
 ## About Me
-  -[My works](https://github.com/Poujhit)
+  - [My works](https://github.com/Poujhit)
 
 
 
