@@ -1,5 +1,5 @@
 # Railway Reservation System.
-A Simple Railway Reservation with automated ticket status regeneration system.
+A Simple Railway Reservation Website with Automated Ticket Status Regeneration System.
 
 Made using **Flutter** for **FrontEnd** and **Firebase** for the **backend**.
 
