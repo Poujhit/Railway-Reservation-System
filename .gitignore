@@ -29,6 +29,7 @@
 .packages
 .pub-cache/
 .pub/
+venv
 /build/
 sample_table.dart
 # Web related
