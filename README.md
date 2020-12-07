@@ -1,6 +1,8 @@
 # Railway Reservation System.
 <p align = "middle">
 <img src = "/screenshots/dart.png" width = "40" height = "40"></img>
+<img src = "/screenshots/firebase.png" width = "40" height = "40"></img>
+<img src = "/screenshots/python.png" width = "40" height = "40"></img>
 </p>
 A Simple Railway Reservation Website with Automated Ticket Status Regeneration System.
 
