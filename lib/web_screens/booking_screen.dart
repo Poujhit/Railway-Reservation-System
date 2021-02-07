@@ -392,7 +392,7 @@ class BookingScreenPage extends StatelessWidget {
                                                                     right: 5,
                                                                     bottom: 5,
                                                                   ),
-                                                                  child: FlatButton(
+                                                                  child: ElevatedButton(
                                                                     onPressed: () => Navigator.of(ctx).pop(),
                                                                     child: Text(
                                                                       'OK',

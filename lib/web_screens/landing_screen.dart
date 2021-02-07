@@ -327,8 +327,10 @@ class _LandingPageScreenState extends State<LandingPageScreen> {
                             alignment: Alignment.center,
                             margin: EdgeInsets.all(25),
                             child: SizedBox.expand(
-                              child: RaisedButton(
-                                color: Theme.of(context).primaryColor,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  primary: Theme.of(context).primaryColor,
+                                ),
                                 child: Text(
                                   'Find Trains',
                                   style: TextStyle(

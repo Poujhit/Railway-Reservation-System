@@ -101,7 +101,7 @@ class HeadBar extends StatelessWidget {
                       bottom: 17,
                       top: 17,
                     ),
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: () async {
                         !Provider.of<Auth>(context, listen: false).isAuth
                             ? Provider.of<Auth>(context, listen: false)
@@ -111,9 +111,11 @@ class HeadBar extends StatelessWidget {
                                 html.window.location.reload();
                               });
                       },
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
