@@ -20,7 +20,7 @@ Check out the website [here](https://railway-reservation-website.firebaseapp.com
 <p align = "middle">
 <img src = "/screenshots/homepage.png"></img>
 <img src = "/screenshots/profile_page1.png"></img>
-<img src = "/screenshots/profile_page2.png" ></img>
+<img src = "/screenshots/profile_page 2.png" ></img>
 <img src = "/screenshots/booking_page.png" ></img>
 </p>
 
