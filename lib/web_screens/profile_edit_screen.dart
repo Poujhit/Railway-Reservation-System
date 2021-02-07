@@ -126,233 +126,239 @@ class _ProfileEditPageScreenState extends State<ProfileEditPageScreen> {
                       else
                         return Column(
                           children: [
-                            StreamBuilder(
-                              stream: UserProvider.getUserDetails(snapshot.data),
-                              builder: (context, AsyncSnapshot<List<User>> streamSnapshot) {
-                                if (streamSnapshot.hasData)
-                                  return Column(
-                                    children: [
-                                      Card(
-                                        margin: const EdgeInsets.only(
-                                          top: 30,
-                                          bottom: 30,
-                                          left: 20,
-                                          right: 20,
-                                        ),
-                                        elevation: 10,
-                                        shadowColor: Colors.black,
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 10,
+                            StatefulBuilder(
+                              builder: (context, setProfileState) {
+                                return StreamBuilder(
+                                  stream: UserProvider.getUserDetails(snapshot.data),
+                                  builder: (context, AsyncSnapshot<List<User>> streamSnapshot) {
+                                    if (streamSnapshot.hasData)
+                                      return Column(
+                                        children: [
+                                          Card(
+                                            margin: const EdgeInsets.only(
+                                              top: 30,
+                                              bottom: 30,
+                                              left: 20,
+                                              right: 20,
                                             ),
-                                            Container(
-                                              margin: EdgeInsets.only(top: 10),
-                                              child: Row(
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  Expanded(
-                                                    child: hintText(text: 'User Name:', left: 10, fontsize: 18),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 3,
-                                                    child: edituserIdmode == 0
-                                                        ? Container(
-                                                            margin: EdgeInsets.only(
-                                                              left: 20,
-                                                            ),
-                                                            child: Container(
-                                                              margin: const EdgeInsets.only(right: 10),
-                                                              child: AutoSizeText(
-                                                                streamSnapshot.data[0].name,
-                                                                maxLines: 2,
-                                                                style: TextStyle(
-                                                                  fontSize: 20,
+                                            elevation: 10,
+                                            shadowColor: Colors.black,
+                                            child: Column(
+                                              children: [
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                divider(),
+                                                Container(
+                                                  margin: EdgeInsets.only(top: 10),
+                                                  child: Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      Expanded(
+                                                        child: hintText(text: 'User Name:', left: 10, fontsize: 18),
+                                                      ),
+                                                      Expanded(
+                                                        flex: 3,
+                                                        child: edituserIdmode == 0
+                                                            ? Container(
+                                                                margin: EdgeInsets.only(
+                                                                  left: 20,
                                                                 ),
-                                                              ),
-                                                            ),
-                                                          )
-                                                        : TextField(
-                                                            controller: userNameController,
-                                                          ),
-                                                  ),
-                                                  Expanded(
-                                                    child: edituserIdmode == 0
-                                                        ? IconButton(
-                                                            icon: Icon(Icons.edit),
-                                                            onPressed: () {
-                                                              userNameController.text = streamSnapshot.data[0].name;
-                                                              setState(() {
-                                                                edituserIdmode = 1;
-                                                              });
-                                                            },
-                                                          )
-                                                        : IconButton(
-                                                            icon: Icon(Icons.save),
-                                                            onPressed: () async {
-                                                              if (userNameController.text != '') {
-                                                                setState(() {
-                                                                  edituserIdmode = 0;
-                                                                });
-                                                                await UserProvider.editUserName(
-                                                                    userNameController.text, snapshot.data);
-                                                              } else
-                                                                Fluttertoast.showToast(
-                                                                    msg: 'UserName cannot be empty.');
-                                                            },
-                                                          ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            divider(),
-                                            Container(
-                                              margin: EdgeInsets.only(top: 10),
-                                              child: Row(
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  Expanded(
-                                                    child: hintText(text: 'Email:', left: 10, fontsize: 18),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 3,
-                                                    child: editEmailmode == 0
-                                                        ? Container(
-                                                            margin: EdgeInsets.only(
-                                                              left: 20,
-                                                            ),
-                                                            child: Container(
-                                                              margin: const EdgeInsets.only(right: 10),
-                                                              child: AutoSizeText(
-                                                                streamSnapshot.data[0].email,
-                                                                maxLines: 2,
-                                                                style: TextStyle(
-                                                                  fontSize: 20,
+                                                                child: Container(
+                                                                  margin: const EdgeInsets.only(right: 10),
+                                                                  child: AutoSizeText(
+                                                                    streamSnapshot.data[0].name,
+                                                                    maxLines: 2,
+                                                                    style: TextStyle(
+                                                                      fontSize: 20,
+                                                                    ),
+                                                                  ),
                                                                 ),
+                                                              )
+                                                            : TextField(
+                                                                controller: userNameController,
                                                               ),
-                                                            ),
-                                                          )
-                                                        : TextField(
-                                                            controller: emailController,
-                                                          ),
-                                                  ),
-                                                  Expanded(
-                                                    child: editEmailmode == 0
-                                                        ? IconButton(
-                                                            icon: Icon(Icons.edit),
-                                                            onPressed: () {
-                                                              emailController.text = streamSnapshot.data[0].email;
-                                                              setState(() {
-                                                                editEmailmode = 1;
-                                                              });
-                                                            },
-                                                          )
-                                                        : IconButton(
-                                                            icon: Icon(Icons.save),
-                                                            onPressed: () async {
-                                                              if (emailController.text != '') {
-                                                                if (emailController.text.contains('@')) {
-                                                                  setState(() {
-                                                                    editEmailmode = 0;
+                                                      ),
+                                                      Expanded(
+                                                        child: edituserIdmode == 0
+                                                            ? IconButton(
+                                                                icon: Icon(Icons.edit),
+                                                                onPressed: () {
+                                                                  userNameController.text = streamSnapshot.data[0].name;
+                                                                  setProfileState(() {
+                                                                    edituserIdmode = 1;
                                                                   });
-                                                                  await UserProvider.editEmail(
-                                                                      emailController.text, snapshot.data);
-                                                                } else
-                                                                  Fluttertoast.showToast(msg: 'Invalid Email.');
-                                                              } else
-                                                                Fluttertoast.showToast(msg: 'Email cannot be empty.');
-                                                            },
-                                                          ),
+                                                                },
+                                                              )
+                                                            : IconButton(
+                                                                icon: Icon(Icons.save),
+                                                                onPressed: () async {
+                                                                  if (userNameController.text != '') {
+                                                                    setProfileState(() {
+                                                                      edituserIdmode = 0;
+                                                                    });
+                                                                    await UserProvider.editUserName(
+                                                                        userNameController.text, snapshot.data);
+                                                                  } else
+                                                                    Fluttertoast.showToast(
+                                                                        msg: 'UserName cannot be empty.');
+                                                                },
+                                                              ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            divider(),
-                                            Container(
-                                              margin: EdgeInsets.only(top: 10),
-                                              child: Row(
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  Expanded(
-                                                    child: hintText(text: 'Profile:', left: 10, fontsize: 18),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 3,
-                                                    child: editProfilemode == 0
-                                                        ? Image.network(
-                                                            streamSnapshot.data[0].profileUrl,
-                                                            height: 100,
-                                                            width: 100,
-                                                          )
-                                                        : TextField(
-                                                            controller: profileController,
-                                                          ),
-                                                  ),
-                                                  Expanded(
-                                                    child: editProfilemode == 0
-                                                        ? IconButton(
-                                                            icon: Icon(Icons.edit),
-                                                            onPressed: () {
-                                                              profileController.text =
-                                                                  streamSnapshot.data[0].profileUrl;
-                                                              setState(() {
-                                                                editProfilemode = 1;
-                                                              });
-                                                            },
-                                                          )
-                                                        : IconButton(
-                                                            icon: Icon(Icons.save),
-                                                            onPressed: () async {
-                                                              if (profileController.text != '') {
-                                                                if (profileController.text.contains('https')) {
-                                                                  setState(() {
-                                                                    editProfilemode = 0;
+                                                ),
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                divider(),
+                                                Container(
+                                                  margin: EdgeInsets.only(top: 10),
+                                                  child: Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      Expanded(
+                                                        child: hintText(text: 'Email:', left: 10, fontsize: 18),
+                                                      ),
+                                                      Expanded(
+                                                        flex: 3,
+                                                        child: editEmailmode == 0
+                                                            ? Container(
+                                                                margin: EdgeInsets.only(
+                                                                  left: 20,
+                                                                ),
+                                                                child: Container(
+                                                                  margin: const EdgeInsets.only(right: 10),
+                                                                  child: AutoSizeText(
+                                                                    streamSnapshot.data[0].email,
+                                                                    maxLines: 2,
+                                                                    style: TextStyle(
+                                                                      fontSize: 20,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            : TextField(
+                                                                controller: emailController,
+                                                              ),
+                                                      ),
+                                                      Expanded(
+                                                        child: editEmailmode == 0
+                                                            ? IconButton(
+                                                                icon: Icon(Icons.edit),
+                                                                onPressed: () {
+                                                                  emailController.text = streamSnapshot.data[0].email;
+                                                                  setProfileState(() {
+                                                                    editEmailmode = 1;
                                                                   });
-                                                                  await UserProvider.editProfilePhoto(
-                                                                      profileController.text, snapshot.data);
-                                                                } else
-                                                                  Fluttertoast.showToast(msg: 'Invalid Url.');
-                                                              } else
-                                                                Fluttertoast.showToast(
-                                                                    msg: 'This Field cannot be empty.');
-                                                            },
-                                                          ),
+                                                                },
+                                                              )
+                                                            : IconButton(
+                                                                icon: Icon(Icons.save),
+                                                                onPressed: () async {
+                                                                  if (emailController.text != '') {
+                                                                    if (emailController.text.contains('@')) {
+                                                                      setProfileState(() {
+                                                                        editEmailmode = 0;
+                                                                      });
+                                                                      await UserProvider.editEmail(
+                                                                          emailController.text, snapshot.data);
+                                                                    } else
+                                                                      Fluttertoast.showToast(msg: 'Invalid Email.');
+                                                                  } else
+                                                                    Fluttertoast.showToast(
+                                                                        msg: 'Email cannot be empty.');
+                                                                },
+                                                              ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                divider(),
+                                                Container(
+                                                  margin: EdgeInsets.only(top: 10),
+                                                  child: Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      Expanded(
+                                                        child: hintText(text: 'Profile:', left: 10, fontsize: 18),
+                                                      ),
+                                                      Expanded(
+                                                        flex: 3,
+                                                        child: editProfilemode == 0
+                                                            ? Image.network(
+                                                                streamSnapshot.data[0].profileUrl,
+                                                                height: 100,
+                                                                width: 100,
+                                                              )
+                                                            : TextField(
+                                                                controller: profileController,
+                                                              ),
+                                                      ),
+                                                      Expanded(
+                                                        child: editProfilemode == 0
+                                                            ? IconButton(
+                                                                icon: Icon(Icons.edit),
+                                                                onPressed: () {
+                                                                  profileController.text =
+                                                                      streamSnapshot.data[0].profileUrl;
+                                                                  setProfileState(() {
+                                                                    editProfilemode = 1;
+                                                                  });
+                                                                },
+                                                              )
+                                                            : IconButton(
+                                                                icon: Icon(Icons.save),
+                                                                onPressed: () async {
+                                                                  if (profileController.text != '') {
+                                                                    if (profileController.text.contains('https')) {
+                                                                      setProfileState(() {
+                                                                        editProfilemode = 0;
+                                                                      });
+                                                                      await UserProvider.editProfilePhoto(
+                                                                          profileController.text, snapshot.data);
+                                                                    } else
+                                                                      Fluttertoast.showToast(msg: 'Invalid Url.');
+                                                                  } else
+                                                                    Fluttertoast.showToast(
+                                                                        msg: 'This Field cannot be empty.');
+                                                                },
+                                                              ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                divider(),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                              ],
                                             ),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            divider(),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  );
-                                else
-                                  return Center(child: CircularProgressIndicator());
+                                          )
+                                        ],
+                                      );
+                                    else
+                                      return const Center(child: CircularProgressIndicator());
+                                  },
+                                );
                               },
                             ),
 
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
 
-                            Text(
-                              'Tickets:',
+                            const Text(
+                              'Tickets and Past Purchases:',
                               style: TextStyle(
                                 fontSize: 40,
                                 fontWeight: FontWeight.bold,
@@ -376,18 +382,22 @@ class _ProfileEditPageScreenState extends State<ProfileEditPageScreen> {
                                         shadowColor: Colors.black,
                                         child: Column(
                                           children: [
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            divider(),
                                             ticketTile('SNO:', eachTicket.sno.toString()),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
                                             divider(),
                                             ticketTile('Ticket Id:', eachTicket.ticId),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
                                             divider(),
                                             ticketTile('Train Number:', eachTicket.trainno),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
                                             divider(),
@@ -398,7 +408,7 @@ class _ProfileEditPageScreenState extends State<ProfileEditPageScreen> {
                                                     : eachTicket.ticketStatus == 1
                                                         ? 'Booked'
                                                         : 'Waiting'),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
                                             divider(),
@@ -418,7 +428,7 @@ class _ProfileEditPageScreenState extends State<ProfileEditPageScreen> {
                                                       margin: const EdgeInsets.only(right: 100),
                                                       child: DataTable(
                                                         columns: [
-                                                          DataColumn(
+                                                          const DataColumn(
                                                             label: Text(
                                                               'Age',
                                                               style: TextStyle(
@@ -427,7 +437,7 @@ class _ProfileEditPageScreenState extends State<ProfileEditPageScreen> {
                                                               ),
                                                             ),
                                                           ),
-                                                          DataColumn(
+                                                          const DataColumn(
                                                             label: Text(
                                                               'Gender',
                                                               style: TextStyle(
@@ -436,7 +446,7 @@ class _ProfileEditPageScreenState extends State<ProfileEditPageScreen> {
                                                               ),
                                                             ),
                                                           ),
-                                                          DataColumn(
+                                                          const DataColumn(
                                                             label: Text(
                                                               'Name',
                                                               style: TextStyle(
@@ -445,7 +455,7 @@ class _ProfileEditPageScreenState extends State<ProfileEditPageScreen> {
                                                               ),
                                                             ),
                                                           ),
-                                                          DataColumn(
+                                                          const DataColumn(
                                                             label: Text(
                                                               'Seat Number',
                                                               style: TextStyle(
@@ -454,7 +464,7 @@ class _ProfileEditPageScreenState extends State<ProfileEditPageScreen> {
                                                               ),
                                                             ),
                                                           ),
-                                                          DataColumn(
+                                                          const DataColumn(
                                                             label: Text(
                                                               'Seat Type',
                                                               style: TextStyle(
@@ -463,7 +473,7 @@ class _ProfileEditPageScreenState extends State<ProfileEditPageScreen> {
                                                               ),
                                                             ),
                                                           ),
-                                                          DataColumn(
+                                                          const DataColumn(
                                                             label: Text(
                                                               'Status',
                                                               style: TextStyle(
@@ -517,21 +527,21 @@ class _ProfileEditPageScreenState extends State<ProfileEditPageScreen> {
                                                 ],
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
                                             divider(),
                                             ticketTile('Date:', '${eachTicket.date}'),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
                                             divider(),
                                             ticketTile('Total Price:', '${eachTicket.totalPrice}'),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
                                             divider(),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 20,
                                             ),
                                           ],
@@ -540,7 +550,7 @@ class _ProfileEditPageScreenState extends State<ProfileEditPageScreen> {
                                     }).toList());
                                   }
                                 } else
-                                  return Center(child: CircularProgressIndicator());
+                                  return const Center(child: CircularProgressIndicator());
                               },
                             ),
                           ],
