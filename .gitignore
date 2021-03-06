@@ -43,9 +43,11 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
-index.html
 api_key.json
 
+# Firebase key
+firebase-config.js
+index.html
 
 # Android Studio will place build artifacts here
 /android/app/debug

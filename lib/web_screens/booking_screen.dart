@@ -11,11 +11,6 @@ class BookingScreenPage extends StatelessWidget {
   static const route = '/home/booking';
   Future<Map<String, String>> bookingdetails() async {
     var pref = await SharedPreferences.getInstance();
-    print(
-      pref.getString('from'),
-    );
-    print(pref.getString('to'));
-    print('date:${pref.getString('pickedDate')}');
     return {
       'from': pref.getString('from'),
       'to': pref.getString('to'),
@@ -392,7 +387,10 @@ class BookingScreenPage extends StatelessWidget {
                                                                     right: 5,
                                                                     bottom: 5,
                                                                   ),
-                                                                  child: ElevatedButton(
+                                                                  child: TextButton(
+                                                                    style: TextButton.styleFrom(
+                                                                      primary: Colors.white,
+                                                                    ),
                                                                     onPressed: () => Navigator.of(ctx).pop(),
                                                                     child: Text(
                                                                       'OK',

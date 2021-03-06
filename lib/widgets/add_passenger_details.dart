@@ -74,7 +74,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                           right: 5,
                           bottom: 5,
                         ),
-                        child: FlatButton(
+                        child: TextButton(
                           onPressed: () {
                             Navigator.of(ctx).pop();
                             html.window.location.reload();
@@ -123,6 +123,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
             right: MediaQuery.of(context).size.width * 0.45,
           ),
           height: 50,
+          // ignore: deprecated_member_use
           child: RaisedButton(
             child: Text(
               'Book Now',
